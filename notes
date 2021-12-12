@@ -1,0 +1,20 @@
+-app.use(bodyParser.json()) >>> got deprecated and replaced with `express.json()`
+-app.use(express.json()) >> to post data in json format
+
+- post method used to get data from frontend so we use `req.body`  
+
+- Morgan library: to log http requests (FE) and responses (BE) in terminal.
+"tiny" to display log requests in specific format.
+
+- Cross-Origin Resources Sharing(CORS): Nodejs app can't trust any app. like when sending requests from frontend to backend, then backend won't respond me the same, because it's forbidden using different ports.
+so to avoid error appears in the console. and to allow any app to request API from my server use CORS.
+
+- To get a product with specific properties >> Product.find().select('name image -_id'), will remove the ID. 
+
+- Populate(id): means that any connected IDs or fields to another table will be displayed as detailed in this field. To connect two table together. 
+
+- admin token:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTdkNmIzMGQ0MTc5YmM5NTg4MTJlZTMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2MzU3NjY2MjQsImV4cCI6MTYzNTc2NjY4NH0.sb-vCmSJ1m_j2fAW6LkDPOISZI8a0VbVmPaQH8cH2NQ
+
+- user token:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTdkOTMyNTk3MjhlMTBhYzVmODg4YjciLCJpYXQiOjE2MzU2MjU3NDAsImV4cCI6MTYzNjIzMDU0MH0.f1ZRmcqNhRdjgV_K9niXR52AFIfGCYKo7xk0VrEU4Og
