@@ -1,14 +1,15 @@
 const mongoose = require("mongoose")
 
 // Database
-mongoose.connect(process.env.DBURL,{     // to get database in the cloud
+mongoose.connect(process.env.CONNECTION_STRING, {     // to get database from the cloud
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: 'eshop-database'
+    dbName: process.env.DB_NAME
 })
-.then(()=> {
+.then(() => {
+    console.log('We are using ' + process.env.DB_NAME)
     console.log('Database Connection is ready...')
 })
-.catch(err =>{
+.catch((err) => {
     console.log(err)
 })
