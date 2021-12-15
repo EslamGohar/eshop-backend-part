@@ -4,7 +4,6 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-
 // a list of all users without password
 router.get('/', async (req, res) =>{
     const userList = await User.find().select('-password')
@@ -31,7 +30,7 @@ router.post('/', async (req, res)=> {
     
     user = await user.save()
 
-    if(!user){
+    if (!user) {
         return res.status(400).send({
             success: false,
             message: "the user cannot be created"
@@ -59,9 +58,8 @@ router.get('/:id', async(req, res)=> {
     res.status(200).send({ success: true, data: user })
 })
 
-
 // update a specific user by id with/without password
-router.put('/:id', async(req, res)=>{
+router.put('/:id', async (req, res)=>{
     const userExit = await User.findById(req.params.id)
     let newPassword
     if (req.body.password) {
@@ -86,30 +84,24 @@ router.put('/:id', async(req, res)=>{
         },
         { new: true }  // return the new updated data
     )
-    if(!user) 
+    if ( !user ) {
         return res.status(404).send({success: false, message:"this user cannot be updated"})
-
-    res.status(200).send({
-        success: true, 
-        data: user, 
-        message:"the user is updated!"
-    })
+    }
+    res.status(200).send({ success: true, data: user, message:"the user is updated!" })
 })
 
 // login user and create a token
-router.post('/login', async (req,res) => {
+router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email })
     const secret = process.env.secret
 
-    if(!user) 
-        return res.status(404).send({
-            success: false,
-            message:"the user not found"
-        })
+    if (!user) { 
+        return res.status(404).send({ success: false, message:"the user not found" })
+    }
 
-    if(user && bcrypt.compareSync(await req.body.password, user.password)) {
+    if (user && bcrypt.compare(req.body.password, user.password)) {
         const token = jwt.sign(
-            { 
+            {
                 userId: user.id,
                 isAdmin: user.isAdmin
             },
@@ -117,7 +109,6 @@ router.post('/login', async (req,res) => {
             { expiresIn: '2m' }     // expire time to clear token after 1month
         )
         return res.status(200).send({ success: true, user: user.email, token: token })
-    
     } else {
         return res.status(404).send({ success: false, message:"password is wrong" })
     }
@@ -139,7 +130,7 @@ router.post('/register', async (req, res)=> {
     })
     user = await user.save()
 
-    if(!user){
+    if (!user) {
         return res.status(400).send({
             success: false,
             message: "the user cannot be created"
@@ -158,22 +149,21 @@ router.post('/register', async (req, res)=> {
 router.delete('/:id', async(req, res)=>{
     try {
         let user = await User.findByIdAndRemove(req.params.id)
-        if(user) {
-            return res.status(200).send({success: true, data: user, message:"User is deleted"})
+        if (user) {
+            return res.status(200).send({ success: true, data: user, message:"User is deleted" })
         } else {
-            return res.status(404).send({success:false, data: message, message:"user cannot be deleted!"})
+            return res.status(404).send({ success:false, data: message, message:"user cannot be deleted!" })
         }
     } catch(err) {
-        return res.status(500).send({success: false, error: err})
+        return res.status(500).send({ success: false, error: err })
     }
 })
-
 
 // Show to the Admin how many users on the store.
 router.get('/get/count', async(req, res)=>{
     const userCount = await User.countDocuments()
 
-    if(!userCount) {
+    if (!userCount) {
         res.status(500).json({ success: false, message: "Cannot count the users.." })
     }
 

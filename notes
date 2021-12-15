@@ -13,6 +13,14 @@ so to avoid error appears in the console. and to allow any app to request API fr
 
 - Populate(id): means that any connected IDs or fields to another table will be displayed as detailed in this field. To connect two table together. 
 
+- In JWT file: 
+// after the user login the eshop, he was assigned a token.
+// this token is overloaded with userId and isAdmin
+// when sending a request, the JWT lib disassembling بتفكك this token with the secret code,
+// jwt will see if it's generated from this server or no. 
+// only Admin who can add/delete/update products. 
+// isRevoked: specify if the user is admin or not.
+
 - admin token:
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTdkNmIzMGQ0MTc5YmM5NTg4MTJlZTMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2MzU3NjY2MjQsImV4cCI6MTYzNTc2NjY4NH0.sb-vCmSJ1m_j2fAW6LkDPOISZI8a0VbVmPaQH8cH2NQ
 

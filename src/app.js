@@ -27,7 +27,7 @@ app.use(errorHandler);
 
 const api = process.env.API_URL
 
-app.use(`${api}/products`, productsRoutes)  //http://localhost:3000/api/v1/products
+app.use(`${api}/products`, productsRoutes)  // http://localhost:3000/api/v1/products
 app.use(`${api}/categories`, categoriesRoutes)
 app.use(`${api}/orders`, ordersRoutes)
 app.use(`${api}/users`, usersRoutes)
